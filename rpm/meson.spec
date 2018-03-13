@@ -9,6 +9,7 @@ License:        ASL 2.0
 Group:          Development/Tools/Building
 Url:            http://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version}/meson-%{version}.tar.gz
+Patch0:          0001-patch-macros.patch
 
 BuildRequires:  python3-base
 BuildArch:      noarch
@@ -23,6 +24,7 @@ Domain Specific Language.
 
 %prep
 %setup -q -n meson-%{version}/meson
+%patch0 -p1
 
 # Remove static boost tests from test cases/frameworks/1 boost (can't use patch due to spaces in dirname)
 sed -i "/static/d" test\ cases/frameworks/1\ boost/meson.build
@@ -45,7 +47,7 @@ python3 setup.py install \
   --root=%{buildroot} --prefix=%{_prefix}
 
 install -Dpm 0644 data/macros.meson \
-  %{buildroot}%{_rpmconfigdir}/macros.d/macros.meson
+  %{buildroot}%{_sysconfdir}/rpm/macros.meson
 
 rm -rf %{buildroot}/%{_mandir}/*
 
@@ -58,4 +60,4 @@ rm -rf %{buildroot}/%{_mandir}/*
 %{_bindir}/wraptool
 %{python_sitelib}/%{_name}/
 %{python_sitelib}/meson-*
-%{_rpmconfigdir}/macros.d/macros.meson
+%config(noreplace) %{_sysconfdir}/rpm/macros.meson
