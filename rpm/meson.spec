@@ -11,8 +11,10 @@ Url:            http://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version}/meson-%{version}.tar.gz
 Patch0:          0001-patch-macros.patch
 
-BuildRequires:  python3-base
 BuildArch:      noarch
+
+BuildRequires:  python3-base
+Requires:  ninja
 
 %description
 Meson is a build system designed to optimise programmer productivity.
