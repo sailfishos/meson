@@ -15,6 +15,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-base
 Requires:  ninja
+# Workaround ccache autodetection not working on OBS arm builds, JB#42632
+Requires:  ccache
 
 %description
 Meson is a build system designed to optimise programmer productivity.
