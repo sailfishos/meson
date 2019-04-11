@@ -2,17 +2,19 @@ diff --git a/data/macros.meson b/data/macros.meson
 index b31f77e..c2eadc0 100644
 --- a/data/macros.meson
 +++ b/data/macros.meson
-@@ -1,3 +1,5 @@
+@@ -1,9 +1,14 @@
 +%_vpath_srcdir .
 +%_vpath_builddir _build
  %__meson %{_bindir}/meson
  %__meson_wrap_mode nodownload
+ %__meson_auto_features enabled
  
-@@ -6,7 +8,6 @@
-     export CXXFLAGS="${CXXFLAGS:-%__global_cxxflags}" \
-     export FFLAGS="${FFLAGS:-%__global_fflags}"       \
-     export FCFLAGS="${FCFLAGS:-%__global_fcflags}"    \
--    export LDFLAGS="${LDFLAGS:-%__global_ldflags}"    \
-     %{__meson}                              \\\
-         --buildtype=plain                   \\\
-         --prefix=%{_prefix}                 \\\
+ %meson \
+-    %set_build_flags \
++    export CFLAGS="${CFLAGS:-%__global_cflags}"       \
++    export CXXFLAGS="${CXXFLAGS:-%__global_cxxflags}" \
++    export FFLAGS="${FFLAGS:-%__global_fflags}"       \
++    export FCFLAGS="${FCFLAGS:-%__global_fcflags}"    \
+     %{shrink:%{__meson} \
+         --buildtype=plain \
+         --prefix=%{_prefix} \
