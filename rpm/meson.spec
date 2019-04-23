@@ -2,14 +2,14 @@
 
 %define _name   mesonbuild
 Name:           meson
-Version:        0.44.0
+Version:        0.50.1
 Release:        0
 Summary:        Python-based build system
 License:        ASL 2.0
 Group:          Development/Tools/Building
 Url:            http://mesonbuild.com/
 Source:         https://github.com/mesonbuild/meson/releases/download/%{version}/meson-%{version}.tar.gz
-Patch0:          0001-patch-macros.patch
+Patch0:         0001-patch-macros.patch
 
 BuildArch:      noarch
 
@@ -58,10 +58,9 @@ rm -rf %{buildroot}/%{_mandir}/*
 %files
 %doc COPYING
 %{_bindir}/meson
-%{_bindir}/mesonconf
-%{_bindir}/mesonintrospect
-%{_bindir}/mesontest
-%{_bindir}/wraptool
 %{python_sitelib}/%{_name}/
 %{python_sitelib}/meson-*
 %config(noreplace) %{_sysconfdir}/rpm/macros.meson
+%dir %{_datadir}/polkit-1
+%dir %{_datadir}/polkit-1/actions
+%{_datadir}/polkit-1/actions/com.mesonbuild.install.policy
