@@ -60,7 +60,7 @@ rm -rf %{buildroot}/%{_mandir}/*
 %{_bindir}/meson
 %{python_sitelib}/%{_name}/
 %{python_sitelib}/meson-*
-%config(noreplace) %{_sysconfdir}/rpm/macros.meson
+%config %{_sysconfdir}/rpm/macros.meson
 %dir %{_datadir}/polkit-1
 %dir %{_datadir}/polkit-1/actions
 %{_datadir}/polkit-1/actions/com.mesonbuild.install.policy
