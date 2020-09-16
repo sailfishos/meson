@@ -1,22 +1,43 @@
 diff --git a/data/macros.meson b/data/macros.meson
-index c5b90de03..483d1c5ad 100644
+index cc4953c5f..27370b838 100644
 --- a/data/macros.meson
 +++ b/data/macros.meson
-@@ -1,3 +1,5 @@
+@@ -1,9 +1,20 @@
 +%_vpath_srcdir .
 +%_vpath_builddir _build
  %__meson %{_bindir}/meson
  %__meson_wrap_mode nodownload
  %__meson_auto_features enabled
-@@ -9,7 +11,10 @@
-         if [ "$MESON_BUILD_NCPUS" -gt 1 ]; then echo "--num-processes $MESON_BUILD_NCPUS"; fi)
  
++%_smp_meson_build_ncpus %([ -z "$RPM_BUILD_NCPUS" ] \\\
++	&& RPM_BUILD_NCPUS="`/usr/bin/getconf _NPROCESSORS_ONLN`"; \\\
++        ncpus_max=%{?_smp_ncpus_max}; \\\
++        if [ -n "$ncpus_max" ] && [ "$ncpus_max" -gt 0 ] && [ "$RPM_BUILD_NCPUS" -gt "$ncpus_max" ]; then RPM_BUILD_NCPUS="$ncpus_max"; fi; \\\
++        if [ "$RPM_BUILD_NCPUS" -gt 1 ]; then echo "$RPM_BUILD_NCPUS"; fi)
++
  %meson \
 -    %set_build_flags \
-+    export CFLAGS="${CFLAGS:-%__global_cflags}"       \
-+    export CXXFLAGS="${CXXFLAGS:-%__global_cxxflags}" \
-+    export FFLAGS="${FFLAGS:-%__global_fflags}"       \
-+    export FCFLAGS="${FCFLAGS:-%__global_fcflags}"    \
++    export CFLAGS="${CFLAGS:-%optflags}" \
++    export CXXFLAGS="${CXXFLAGS:-%optflags}" \
++    export FFLAGS="${FFLAGS:-%__global_fflags}" \
++    export FCFLAGS="${FCFLAGS:-%__global_fcflags}" \
      %{shrink:%{__meson} \
          --buildtype=plain \
          --prefix=%{_prefix} \
+@@ -27,7 +38,7 @@
+ %meson_build \
+     %{shrink:%{__meson} compile \
+         -C %{_vpath_builddir} \
+-        -j %{_smp_build_ncpus} \
++        -j %{_smp_meson_build_ncpus} \
+         --verbose \
+         %{nil}}
+ 
+@@ -40,6 +51,6 @@
+ %meson_test \
+     %{shrink:%{__meson} test \
+         -C %{_vpath_builddir} \
+-        --num-processes %{_smp_build_ncpus} \
++        --num-processes %{_smp_meson_build_ncpus} \
+         --print-errorlogs \
+         %{nil}}
