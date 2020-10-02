@@ -1,21 +1,17 @@
-%global __python %{__python3}
-
 %define libname  mesonbuild
 
 Name:           meson
-Version:        0.54.3
+Version:        0.55.3
 Release:        1
 Summary:        High productivity build system
 License:        ASL 2.0
-Url:            http://mesonbuild.com/
+Url:            https://mesonbuild.com/
 Source:         %{name}-%{version}.tar.bz2
 Patch0:         0001-patch-macros.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel >= 3.5.0
-BuildRequires:  python3-setuptools
-Requires:       python3-setuptools
 Requires:       ninja >= 1.7.0
 # Workaround ccache autodetection not working on OBS arm builds, JB#42632
 Requires:       ccache
@@ -32,10 +28,10 @@ Domain Specific Language.
 %autosetup -p1 -n %{name}-%{version}/%{name}
 
 %build
-python3 setup.py build
+%py3_build
 
 %install
-python3 setup.py install --root=%{buildroot} --prefix=%{_prefix}
+%py3_install
 install -Dpm 0644 data/macros.%{name} %{buildroot}%{_sysconfdir}/rpm/macros.%{name}
 
 rm -rf %{buildroot}/%{_mandir}/*
@@ -43,8 +39,8 @@ rm -rf %{buildroot}/%{_mandir}/*
 %files
 %license COPYING
 %{_bindir}/%{name}
-%{python_sitelib}/%{libname}/
-%{python_sitelib}/%{name}-*.egg-info/
+%{python3_sitelib}/%{libname}/
+%{python3_sitelib}/%{name}-*.egg-info/
 %{_sysconfdir}/rpm/macros.%{name}
 %dir %{_datadir}/polkit-1
 %dir %{_datadir}/polkit-1/actions
