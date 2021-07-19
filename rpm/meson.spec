@@ -10,6 +10,7 @@ Source:         %{name}-%{version}.tar.bz2
 Patch0:         0001-patch-macros.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel >= 3.5.0
+BuildRequires:  python3-setuptools
 Requires:       ninja >= 1.7.0
 # Workaround ccache autodetection not working on OBS arm builds, JB#42632
 Requires:       ccache
