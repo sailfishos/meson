@@ -1,0 +1,11 @@
+diff --git a/data/macros.meson b/data/macros.meson
+index cc4953c5f..3013d5d15 100644
+--- a/data/macros.meson
++++ b/data/macros.meson
+@@ -1,4 +1,6 @@
+ %__meson %{_bindir}/meson
++%_vpath_srcdir .
++%_vpath_builddir _build
+ %__meson_wrap_mode nodownload
+ %__meson_auto_features enabled
+ 
