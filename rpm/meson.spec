@@ -1,5 +1,5 @@
 Name:           meson
-Version:        1.1.1
+Version:        1.4.1
 Release:        1
 Summary:        High productivity build system
 License:        ASL 2.0
@@ -26,7 +26,7 @@ Domain Specific Language.
 
 %install
 %py3_install
-install -Dpm 0644 -t %{buildroot}%{_sysconfdir}/rpm/ data/macros.%{name}
+install -Dpm 0644 -t %{buildroot}%{_rpmmacrodir} data/macros.%{name}
 
 rm -rf %{buildroot}/%{_mandir}/*
 
@@ -35,7 +35,7 @@ rm -rf %{buildroot}/%{_mandir}/*
 %{_bindir}/%{name}
 %{python3_sitelib}/mesonbuild/
 %{python3_sitelib}/%{name}-*.egg-info/
-%{_sysconfdir}/rpm/macros.%{name}
+%{_rpmmacrodir}/macros.%{name}
 %dir %{_datadir}/polkit-1
 %dir %{_datadir}/polkit-1/actions
 %{_datadir}/polkit-1/actions/com.mesonbuild.install.policy
