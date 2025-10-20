@@ -1,9 +1,9 @@
 Name:           meson
-Version:        1.4.1
+Version:        1.9.1
 Release:        1
 Summary:        High productivity build system
 License:        ASL 2.0
-Url:            https://mesonbuild.com/
+Url:            https://github.com/sailfishos/meson/
 Source:         %{name}-%{version}.tar.bz2
 Patch0:         patch-macros.patch
 BuildArch:      noarch
