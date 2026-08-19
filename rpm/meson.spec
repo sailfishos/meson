@@ -1,5 +1,5 @@
 Name:           meson
-Version:        1.9.1
+Version:        1.11.1
 Release:        1
 Summary:        High productivity build system
 License:        ASL 2.0
